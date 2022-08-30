@@ -1,10 +1,11 @@
-
-import './App.css';
+import React, { Component } from 'react'
+import TicTacToe from './TicTacToe/TicTacToe';
 
 function App() {
+
   return (
     <div className="App">
-      
+      <TicTacToe/>
     </div>
   );
 }
