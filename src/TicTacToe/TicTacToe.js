@@ -6,6 +6,7 @@ const TicTacToe = () => {
   const [cells, setCells] = useState(Array(9).fill(""));
   const [winner, setWinner] = useState()
   const [tie, setTie] = useState()
+  const [count, setCount] = useState(1)
 
   const checkForWinner = (squares) => {
     let combos = {
@@ -38,25 +39,31 @@ const TicTacToe = () => {
           squares[pattern[1]] === squares[pattern[2]]
         ) {
           setWinner(squares[pattern[0]])
+        } else {
+          if (count === 9 && winner === null) setTie('tie')
         }
       })
     }
   };
-
+  
   const handleClick = (num) => {
     if (cells[num] !== "") return;
 
     let squares = [...cells];
+    
 
     if (turn === "x") {
       squares[num] = turn;
       setTurn("o");
     } else {
       squares[num] = turn;
-      setTurn("x");
+      setTurn("x"); 
     }
-
+    
+    setCount(count + 1)
+    console.log(count)
     checkForWinner(squares);
+    console.log(winner)
     setCells(squares);
   };
 
@@ -64,6 +71,7 @@ const TicTacToe = () => {
     setWinner(null)
     setTie(null)
     setCells(Array(9).fill(""))
+    setCount(1)
   }
 
   const Cell = ({ num }) => {
@@ -100,7 +108,7 @@ const TicTacToe = () => {
       )}
       {tie && (
         <>
-        <p>The game was a tie!</p>
+        <p>The game was a {tie}!</p>
         <button onClick={() => handleRestart()}>Play Again</button>
         </>
       )}
